@@ -1,0 +1,8 @@
+{
+  "name": "package-json-in-dist",
+  "description": "Utility that copies and update package.json in dist folder to publish only this directory",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": "./src/index.js",
+  "packageManager": "yarn@4.5.2"
+}
