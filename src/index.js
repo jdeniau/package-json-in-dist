@@ -16,8 +16,13 @@ const newPackageJson = { ...packageJson };
 newPackageJson.private = false;
 
 // remove "dist" from "main" and "types"
-newPackageJson.main = newPackageJson.main.replace(DIST_DIRECTORY, "");
-newPackageJson.types = newPackageJson.types.replace(DIST_DIRECTORY, "");
+if (newPackageJson.main) {
+  newPackageJson.main = newPackageJson.main.replace(DIST_DIRECTORY, "");
+}
+
+if (newPackageJson.types) {
+  newPackageJson.types = newPackageJson.types.replace(DIST_DIRECTORY, "");
+}
 
 // handle "exports" key
 for (const key in newPackageJson.exports) {
