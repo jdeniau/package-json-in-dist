@@ -30,3 +30,6 @@ jobs:
 
       - name: Run tests
         run: yarn test
+        
+      - name: Add prettier check
+        run: yarn lint:format
