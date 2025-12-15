@@ -4,5 +4,13 @@
   "version": "0.1.0",
   "type": "module",
   "bin": "./src/index.js",
-  "packageManager": "yarn@4.5.2"
+  "packageManager": "yarn@4.5.2",
+  "scripts": {
+    "lint:format": "prettier --check .",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "prettier": "^3.7.4",
+    "vitest": "^4.0.15"
+  }
 }

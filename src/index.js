@@ -1,13 +1,13 @@
-import path from "node:path";
-import fs from "node:fs";
+import path from 'node:path';
+import fs from 'node:fs';
 
-const DEFAULT_DIST_DIRECTORY = process.argv[2] ?? "dist/";
+const DEFAULT_DIST_DIRECTORY = process.argv[2] ?? 'dist/';
 
-const suffixBySlash = (dir) => (dir.endsWith("/") ? dir : dir + "/");
+const suffixBySlash = (dir) => (dir.endsWith('/') ? dir : dir + '/');
 
 const DIST_DIRECTORY = suffixBySlash(DEFAULT_DIST_DIRECTORY);
 
-const packageJsonPath = path.resolve("package.json");
+const packageJsonPath = path.resolve('package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath));
 
 const newPackageJson = { ...packageJson };
@@ -17,11 +17,11 @@ newPackageJson.private = false;
 
 // remove "dist" from "main" and "types"
 if (newPackageJson.main) {
-  newPackageJson.main = newPackageJson.main.replace(DIST_DIRECTORY, "");
+  newPackageJson.main = newPackageJson.main.replace(DIST_DIRECTORY, '');
 }
 
 if (newPackageJson.types) {
-  newPackageJson.types = newPackageJson.types.replace(DIST_DIRECTORY, "");
+  newPackageJson.types = newPackageJson.types.replace(DIST_DIRECTORY, '');
 }
 
 // handle "exports" key
@@ -39,16 +39,16 @@ for (const key in newPackageJson.exports) {
   }
 
   // remove "dist" from exports paths
-  if (typeof newPackageJson.exports[key] === "string") {
+  if (typeof newPackageJson.exports[key] === 'string') {
     newPackageJson.exports[key] = newPackageJson.exports[key].replace(
       DIST_DIRECTORY,
-      ""
+      ''
     );
   } else {
     for (const subKey in newPackageJson.exports[key]) {
       newPackageJson.exports[key][subKey] = newPackageJson.exports[key][
         subKey
-      ].replace(DIST_DIRECTORY, "");
+      ].replace(DIST_DIRECTORY, '');
     }
   }
 }
@@ -61,6 +61,6 @@ delete newPackageJson.devDependencies;
 fs.mkdirSync(path.resolve(DIST_DIRECTORY), { recursive: true });
 
 fs.writeFileSync(
-  path.resolve(DIST_DIRECTORY, "package.json"),
+  path.resolve(DIST_DIRECTORY, 'package.json'),
   JSON.stringify(newPackageJson, null, 2)
 );
